@@ -1,0 +1,5 @@
+Flask
+Flask-SQLAlchemy
+gunicorn
+requests
+werkzeug==3.0.1
