@@ -1,0 +1,14 @@
+{% macro nav_items() %}
+<li class="rounded-xl overflow-hidden">
+  <a href="{{ url_for('home_route') }}" class="flex items-center px-4 py-3 text-base-content rounded-xl hover:bg-primary/10 hover:text-primary transition-all duration-300 {% if request.endpoint == 'home_route' %}bg-primary/10 text-primary font-medium{% endif %}">
+      <span class="min-w-[1.75rem] pr-3 text-lg flex items-center justify-center"><i class="bi bi-house"></i></span>
+      <span class="ml-3 transition-opacity duration-300">Dashboard</span>
+  </a>
+</li>
+<li class="rounded-xl overflow-hidden">
+  <a href="{{ url_for('company_admins_route') }}" class="flex items-center px-4 py-3 text-base-content rounded-xl hover:bg-primary/10 hover:text-primary transition-all duration-300 {% if request.endpoint == 'company_admins_route' %}bg-primary/10 text-primary font-medium{% endif %}">
+      <span class="min-w-[1.75rem] pr-3 text-lg flex items-center justify-center"><i class="bi bi-people"></i></span>
+      <span class="ml-3 transition-opacity duration-300">Team</span>
+  </a>
+</li>
+{% endmacro %}

@@ -1,0 +1,87 @@
+/* Only keeping essential custom styles that can't be handled by Tailwind */
+body {
+    font-family: 'Inter', sans-serif;
+    overflow-x: hidden;
+    min-height: 100vh;
+}
+
+/* Main Content Styles */
+.main-content {
+    margin-left: 260px; /* Default state with expanded sidebar */
+    transition: all 0.3s ease;
+    min-height: 100vh;
+    width: calc(100% - 260px);
+}
+
+/* When sidebar is collapsed */
+.main-content.collapsed {
+    margin-left: 70px;
+    width: calc(100% - 70px);
+}
+
+/* DaisyUI Modal Styles */
+.modal {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 999;
+    @apply bg-base-content/50;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease-in-out;
+}
+
+.modal[open] {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+}
+
+.modal-box {
+    max-height: calc(100vh - 5em);
+    @apply bg-base-100;
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow-lg);
+    padding: 1.5rem;
+    width: 91.666667%;
+    max-width: 32rem;
+    transition: transform 0.3s ease-in-out;
+    transform: scale(0.95);
+    overflow-y: auto;
+    overscroll-behavior: contain;
+}
+
+.modal[open] .modal-box {
+    transform: scale(1);
+}
+
+.modal-action {
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.5rem;
+    margin-top: 1rem;
+}
+
+/* Mobile styles - using lg breakpoint (1024px) to match Tailwind's lg */
+@media (max-width: 1023px) {
+    .main-content {
+        margin-left: 0;
+        width: 100%;
+    }
+    
+    .main-content.collapsed {
+        margin-left: 0;
+        width: 100%;
+    }
+}
+
+@media (min-width: 1024px) {
+    .mobile-menu-button {
+        display: none !important;
+    }
+}

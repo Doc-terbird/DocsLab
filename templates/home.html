@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+ <html lang="en" data-theme="dark">
+ <head>
+     <title>Doctor Bird's War Room</title>
+     <meta charset="UTF-8">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     {% include 'partials/_head_tags.html' %}
+ </head>
+ <body class="font-['Inter'] bg-[#121212] text-white">
+    {% include 'partials/_sidebar.html' %}
+
+    <!-- Main Content -->
+    <main id="main-content" class="main-content p-6">
+        <div class="text-4xl font-bold text-white mb-6 text-center">Doctor Bird's War Room</div>
+        {% include 'partials/_header.html' %}
+
+        <!-- Command Bar -->
+        <div class="grid grid-cols-1 lg:grid-cols-6 gap-4 mb-6 bg-[#1F1F1F] p-4 rounded-xl">
+            <!-- Fear & Greed Index (Draggable) -->
+            <div id="fear-greed-container" class="col-span-1 flex justify-center items-center cursor-move">
+                <div id="fear-greed-indicator" class="w-4 h-24 bg-gradient-to-t from-[#DC3545] via-[#FFC107] to-[#28A745] rounded-full relative">
+                    <div id="fear-greed-level" class="absolute bottom-0 left-0 right-0 bg-white rounded-full transition-all duration-300 ease-in-out" style="height: 50%"></div>
+                </div>
+            </div>
+
+            <!-- Top Cryptocurrencies Stats Cards -->
+            <div class="col-span-5 grid grid-cols-5 gap-3">
+                <!-- Bitcoin Card -->
+                <div class="crypto-card bg-[#121212] border border-[#2C2C2C] rounded-lg p-3 text-center hover:bg-[#1F1F1F] transition-all duration-300">
+                    <div class="flex justify-between items-center mb-2">
+                        <span class="text-sm font-bold text-[#17A2B8]">BTC</span>
+                        <span class="text-xs text-white/70">Bitcoin</span>
+                    </div>
+                    <div class="text-lg font-bold mb-1 crypto-price">$42,069.00</div>
+                    <div class="flex items-center justify-center">
+                        <span class="text-sm text-[#28A745] mr-2 crypto-change">+3.42%</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-[#28A745]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
+                        </svg>
+                    </div>
+                </div>
+                <!-- Ethereum Card -->
+                <div class="crypto-card bg-[#121212] border border-[#2C2C2C] rounded-lg p-3 text-center hover:bg-[#1F1F1F] transition-all duration-300">
+                    <div class="flex justify-between items-center mb-2">
+                        <span class="text-sm font-bold text-[#17A2B8]">ETH</span>
+                        <span class="text-xs text-white/70">Ethereum</span>
+                    </div>
+                    <div class="text-lg font-bold mb-1 crypto-price">$2,345.67</div>
+                    <div class="flex items-center justify-center">
+                        <span class="text-sm text-[#28A745] mr-2 crypto-change">+2.15%</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-[#28A745]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-lienjoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
+                        </svg>
+                    </div>
+                </div>
+                <!-- Binance Coin Card -->
+                <div class="crypto-card bg-[#121212] border border-[#2C2C2C] rounded-lg p-3 text-center hover:bg-[#1F1F1F] transition-all duration-300">
+                    <div class="flex justify-between items-center mb-2">
+                        <span class="text-sm font-bold text-[#17A2B8]">BNB</span>
+                        <span class="text-xs text-white/70">Binance</span>
+                    </div>
+                    <div class="text-lg font-bold mb-1 crypto-price">$345.67</div>
+                    <div class="flex items-center justify-center">
+                        <span class="text-sm text-[#28A745] mr-2 crypto-change">+1.45%</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-[#28A745]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
+                        </svg>
+                    </div>
+                </div>
+                <!-- Cardano Card -->
+                <div class="crypto-card bg-[#121212] border border-[#2C2C2C] rounded-lg p-3 text-center hover:bg-[#1F1F1F] transition-all duration-300">
+                    <div class="flex justify-between items-center mb-2">
+                        <span class="text-sm font-bold text-[#17A2B8]">ADA</span>
+                        <span class="text-xs text-white/70">Cardano</span>
+                    </div>
+                    <div class="text-lg font-bold mb-1 crypto-price">$0.45</div>
+                    <div class="flex items-center justify-center">
+                        <span class="text-sm text-[#28A745] mr-2 crypto-change">+0.85%</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-[#28A745]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
+                        </svg>
+                    </div>
+                </div>
+                <!-- Solana Card -->
+                <div class="crypto-card bg-[#121212] border border-[#2C2C2C] rounded-lg p-3 text-center hover:bg-[#1F1F1F] transition-all duration-300">
+                    <div class="flex justify-between items-center mb-2">
+                        <span class="text-sm font-bold text-[#17A2B8]">SOL</span>
+                        <span class="text-xs text-white/70">Solana</span>
+                    </div>
+                    <div class="text-lg font-bold mb-1 crypto-price">$145.67</div>
+                    <div class="flex items-center justify-center">
+                        <span class="text-sm text-[#28A745] mr-2 crypto-change">+2.75%</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-[#28A745]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
+                        </svg>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Existing Content Remains Unchanged -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
+            <!-- Portfolio Value Card -->
+            <div class="card bg-base-200 shadow-xl">
+                <div class="card-body">
+                    <h2 class="card-title text-primary">Portfolio Value</h2>
+                    <p class="text-3xl font-bold">$0.00</p>
+                    <p class="text-sm text-success">+0.00% (24h)</p>
+                </div>
+            </div>
+            
+            <!-- Asset Selector -->
+            <div class="card bg-base-200 shadow-xl">
+                <div class="card-body">
+                    <h2 class="card-title text-primary">Trading Pair</h2>
+                    <select class="select select-bordered w-full" id="trading-pair-selector">
+                        <optgroup label="Stable Cryptocurrencies">
+                            <option value="BTC-USD">Bitcoin (BTC-USD)</option>
+                            <option value="ETH-USD">Ethereum (ETH-USD)</option>
+                            <option value="BNB-USD">Binance Coin (BNB-USD)</option>
+                            <option value="ADA-USD">Cardano (ADA-USD)</option>
+                            <option value="DOT-USD">Polkadot (DOT-USD)</option>
+                            <option value="LINK-USD">Chainlink (LINK-USD)</option>
+                            <option value="XRP-USD">Ripple (XRP-USD)</option>
+                            <option value="LTC-USD">Litecoin (LTC-USD)</option>
+                            <option value="MATIC-USD">Polygon (MATIC-USD)</option>
+                            <option value="UNI-USD">Uniswap (UNI-USD)</option>
+                            <option value="AVAX-USD">Avalanche (AVAX-USD)</option>
+                            <option value="ATOM-USD">Cosmos (ATOM-USD)</option>
+                            <option value="XLM-USD">Stellar (XLM-USD)</option>
+                            <option value="ETC-USD">Ethereum Classic (ETC-USD)</option>
+                            <option value="ALGO-USD">Algorand (ALGO-USD)</option>
+                            <option value="VET-USD">VeChain (VET-USD)</option>
+                            <option value="FIL-USD">Filecoin (FIL-USD)</option>
+                            <option value="AAVE-USD">Aave (AAVE-USD)</option>
+                            <option value="MKR-USD">Maker (MKR-USD)</option>
+                            <option value="COMP-USD">Compound (COMP-USD)</option>
+                            <option value="SNX-USD">Synthetix (SNX-USD)</option>
+                            <option value="ZIL-USD">Zilliqa (ZIL-USD)</option>
+                            <option value="DASH-USD">Dash (DASH-USD)</option>
+                            <option value="ZEC-USD">Zcash (ZEC-USD)</option>
+                            <option value="NEO-USD">Neo (NEO-USD)</option>
+                            <option value="QTUM-USD">Qtum (QTUM-USD)</option>
+                        </optgroup>
+                        <optgroup label="Volatile Cryptocurrencies">
+                            <option value="SOL-USD">Solana (SOL-USD)</option>
+                            <option value="DOGE-USD">Dogecoin (DOGE-USD)</option>
+                            <option value="SHIB-USD">Shiba Inu (SHIB-USD)</option>
+                            <option value="TRX-USD">TRON (TRX-USD)</option>
+                            <option value="SAND-USD">The Sandbox (SAND-USD)</option>
+                            <option value="MANA-USD">Decentraland (MANA-USD)</option>
+                            <option value="GALA-USD">Gala (GALA-USD)</option>
+                            <option value="AXS-USD">Axie Infinity (AXS-USD)</option>
+                            <option value="CHZ-USD">Chiliz (CHZ-USD)</option>
+                            <option value="ENJ-USD">Enjin Coin (ENJ-USD)</option>
+                            <option value="FLOW-USD">Flow (FLOW-USD)</option>
+                            <option value="ICP-USD">Internet Computer (ICP-USD)</option>
+                            <option value="FTT-USD">FTX Token (FTT-USD)</option>
+                            <option value="NEAR-USD">NEAR Protocol (NEAR-USD)</option>
+                            <option value="THETA-USD">Theta Network (THETA-USD)</option>
+                            <option value="ONE-USD">Harmony (ONE-USD)</option>
+                            <option value="EGLD-USD">MultiversX (EGLD-USD)</option>
+                            <option value="RNDR-USD">Render Token (RNDR-USD)</option>
+                            <option value="AUDIO-USD">Audius (AUDIO-USD)</option>
+                            <option value="CELO-USD">Celo (CELO-USD)</option>
+                            <option value="XTZ-USD">Tezos (XTZ-USD)</option>
+                            <option value="BTT-USD">BitTorrent (BTT-USD)</option>
+                            <option value="HOT-USD">Holo (HOT-USD)</option>
+                            <option value="WAVES-USD">Waves (WAVES-USD)</option>
+                            <option value="AR-USD">Arweave (AR-USD)</option>
+                        </optgroup>
+                    </select>
+                </div>
+            </div>
+            
+            <!-- Timeframe Control -->
+            <div class="card bg-base-200 shadow-xl">
+                <div class="card-body">
+                    <h2 class="card-title text-primary">Timeframe</h2>
+                    <div class="btn-group">
+                        <button class="btn btn-sm">1m</button>
+                        <button class="btn btn-sm btn-active">5m</button>
+                        <button class="btn btn-sm">15m</button>
+                        <button class="btn btn-sm">1h</button>
+                        <button class="btn btn-sm">4h</button>
+                        <button class="btn btn-sm">1d</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Market Statistics -->
+        <div class="grid grid-cols-1 lg:grid-cols-4 gap-6">
+            <!-- Crypto Market Stats -->
+            <div class="card bg-base-200 shadow-xl">
+                <div class="card-body">
+                    <h2 class="card-title text-primary">Market Stats</h2>
+                    <div class="space-y-4">
+                        <div>
+                            <p class="text-sm text-base-content/70">24h High</p>
+                            <p class="text-lg font-bold market-high">$0.00</p>
+                        </div>
+                        <div>
+                            <p class="text-sm text-base-content/70">24h Low</p>
+                            <p class="text-lg font-bold market-low">$0.00</p>
+                        </div>
+                        <div>
+                            <p class="text-sm text-base-content/70">24h Volume</p>
+                            <p class="text-lg font-bold market-volume">$0.00</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Economic Indicators -->
+            <div class="card bg-base-200 shadow-xl">
+                <div class="card-body">
+                    <h2 class="card-title text-primary">Economic Indicators</h2>
+                    <div class="space-y-4">
+                        <div>
+                            <p class="text-sm text-base-content/70">Unemployment</p>
+                            <p class="text-lg font-bold economic-unemployment">0.00%</p>
+                            <span class="text-xs economic-unemployment-trend"></span>
+                        </div>
+                        <div>
+                            <p class="text-sm text-base-content/70">Inflation</p>
+                            <p class="text-lg font-bold economic-inflation">0.00%</p>
+                            <span class="text-xs economic-inflation-trend"></span>
+                        </div>
+                        <div>
+                            <p class="text-sm text-base-content/70">Interest Rate</p>
+                            <p class="text-lg font-bold economic-interest-rate">0.00%</p>
+                            <span class="text-xs economic-interest-rate-trend"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Trading Activity -->
+        <div class="mt-6">
+            <div class="card bg-base-200 shadow-xl">
+                <div class="card-body">
+                    <h2 class="card-title text-primary">Recent Activity</h2>
+                    <div class="overflow-x-auto">
+                        <table class="table w-full">
+                            <thead>
+                                <tr>
+                                    <th>Time</th>
+                                    <th>Type</th>
+                                    <th>Asset</th>
+                                    <th>Price</th>
+                                    <th>Amount</th>
+                                    <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td colspan="6" class="text-center text-base-content/50">No recent activity</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="/static/js/sidebar.js"></script>
+<script src="/static/js/script.js"></script>
+<script src="/static/js/sidebar.js"></script>
+<script src="/static/js/crypto-widget.js"></script>
+<script src="/static/js/economic-indicators.js"></script>
+</body>
+</html>

@@ -1,0 +1,44 @@
+<!-- Top Navigation Bar -->
+<nav class="navbar bg-base-100 px-4 py-2 flex justify-between items-center rounded-2xl w-full mx-0 shadow-lg mb-8">
+    <div class="navbar-start flex items-center">
+        <button id="mobile-toggle" class="btn btn-ghost btn-sm lg:hidden mr-3">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="inline-block w-6 h-6 stroke-current">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+            </svg>
+        </button>
+    </div>
+    <div class="navbar-end flex items-center">
+        <div class="dropdown dropdown-end">
+            <div class="flex items-center space-x-3">
+                <span class="text-sm font-medium text-base-content hidden md:inline-block">
+                    {% if session['user'].get('display_name') %}
+                        {{ session['user']['display_name'] }}
+                    {% else %}
+                        {{ session['user']['email'].split('@')[0] }}
+                    {% endif %}
+                </span>
+                <div tabindex="0" role="button" class="btn btn-ghost btn-circle avatar">
+                    <div class="w-10 rounded-full">
+                        {% if session['user'].get('photo_url') %}
+                            <img alt="User Avatar" src="{{ session['user']['photo_url'] }}" class="object-cover w-full h-full rounded-full" />
+                        {% else %}
+                            <div class="w-full h-full bg-primary text-primary-content flex items-center justify-center text-xl font-bold">
+                                {{ session['user'].get('display_name', '')|initials }}
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            <ul tabindex="0" class="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
+                <li class="disabled">
+                    <div class="flex flex-col pointer-events-none">
+                        <span class="font-bold text-base-content">{{ session['user'].get('display_name', 'User') }}</span>
+                        <span class="text-xs text-base-content/50">{{ session['user'].get('email', 'No Email') }}</span>
+                    </div>
+                </li>
+                <li><a href="{{ url_for('logout') }}" class="hover:bg-primary/10 hover:text-primary"><i class="bi bi-box-arrow-right mr-2"></i> Sign Out</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+{% include 'partials/_mobile_menu.html' %}

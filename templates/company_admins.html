@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="{{ theme }}">
+<head>
+    <title>Team - Admin Dashboard</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% include 'partials/_head_tags.html' %}
+</head>
+<body>
+    {% include 'partials/_sidebar.html' %}
+
+    <!-- Main Content -->
+    <main id="main-content" class="main-content p-6">
+        {% include 'partials/_header.html' %}
+
+        <!-- Page Header -->
+        <div class="page-header mt-6">
+            <h1 class="text-4xl font-bold text-base-content mb-4">Team Management</h1>
+            <p class="text-base text-base-content/70 mb-4">Manage company admins and domain access settings.</p>
+        </div>
+
+        <!-- Main Content Sections -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <!-- Domain Access Section -->
+            <div class="mt-6">
+                <div class="bg-base-100 rounded-lg shadow-md p-6">
+                    <h5 class="text-lg font-semibold text-base-content mb-4">Domain Access</h5>
+                    <div class="overflow-x-auto">
+                        <table class="table-auto w-full text-sm text-left text-base-content">
+                            <thead class="text-xs text-base-content/70 uppercase bg-base-200">
+                                <tr>
+                                    <th scope="col" class="px-4 py-3 whitespace-nowrap">ID</th>
+                                    <th scope="col" class="px-4 py-3 whitespace-nowrap">Email Domain</th>
+                                    <th scope="col" class="px-4 py-3 text-right whitespace-nowrap">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for ending in allowed_endings %}
+                                <tr class="border-b border-base-200 hover:bg-base-200">
+                                    <td class="px-4 py-3 whitespace-nowrap">{{ ending.id }}</td>
+                                    <td class="px-4 py-3 whitespace-nowrap">{{ ending.email_ending }}</td>
+                                    <td class="px-4 py-3 text-right whitespace-nowrap">
+                                        <button class="btn btn-sm btn-outline btn-error delete-ending" data-ending-id="{{ ending.id }}">
+                                            <i class="bi bi-trash me-1"></i>Delete
+                                        </button>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                    <button type="button" id="add-email-ending-btn" class="btn btn-primary mt-4">
+                        <i class="bi bi-plus-circle me-2"></i>Add New Domain
+                    </button>
+                </div>
+            </div>
+
+            <!-- Company Admins Section -->
+            <div class="mt-6">
+                <div class="bg-base-100 rounded-lg shadow-md p-6">
+                    <h5 class="text-lg font-semibold text-base-content mb-4">Company Admins</h5>
+                    <div class="overflow-x-auto">
+                        <table class="table-auto w-full text-sm text-left text-base-content">
+                            <thead class="text-xs text-base-content/70 uppercase bg-base-200">
+                                <tr>
+                                    <th scope="col" class="px-4 py-3 whitespace-nowrap">ID</th>
+                                    <th scope="col" class="px-4 py-3 whitespace-nowrap">Email</th>
+                                    <th scope="col" class="px-4 py-3 whitespace-nowrap">Role</th>
+                                    <th scope="col" class="px-4 py-3 whitespace-nowrap">Last Login</th>
+                                    <th scope="col" class="px-4 py-3 text-right whitespace-nowrap">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for email in allowed_emails %}
+                                <tr class="border-b border-base-200 hover:bg-base-200">
+                                    <td class="px-4 py-3 whitespace-nowrap">{{ email.id }}</td>
+                                    <td class="px-4 py-3 whitespace-nowrap">{{ email.email }}</td>
+                                    <td class="px-4 py-3 whitespace-nowrap">{{ email.role }}</td>
+                                    <td class="px-4 py-3 whitespace-nowrap">
+                                        {% if email.last_login %}
+                                            <span class="last-login" data-datetime="{{ email.last_login.isoformat()+'Z' }}">{{ email.last_login.strftime('%H:%M %d %b %y') }}</span>
+                                        {% else %}
+                                            <span class="last-login" data-datetime="">{{ 'Never' }}</span>
+                                        {% endif %}
+                                    </td>
+                                    <td class="px-4 py-3 text-right whitespace-nowrap">
+                                        {% if email.id == 1 %}
+                                            <!-- No action buttons for Owner -->
+                                        {% elif email.from_allowed_ending and not email.is_blocked %}
+                                            <button class="btn btn-sm btn-outline btn-warning block-admin" data-admin-id="{{ email.id }}" data-admin-email="{{ email.email }}">
+                                                <i class="bi bi-lock me-1"></i>Block
+                                            </button>
+                                        {% elif email.is_blocked %}
+                                            <button class="btn btn-sm btn-outline btn-success unblock-admin" data-admin-id="{{ email.id }}" data-admin-email="{{ email.email }}">
+                                                <i class="bi bi-unlock me-1"></i>Unblock
+                                            </button>
+                                        {% else %}
+                                            <button class="btn btn-sm btn-outline btn-error delete-admin" data-admin-id="{{ email.id }}">
+                                                <i class="bi bi-trash me-1"></i>Delete
+                                            </button>
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                    <button type="button" id="add-company-admin-btn" class="btn btn-primary mt-4">
+                        <i class="bi bi-person-plus me-2"></i>Add New Admin
+                    </button>
+                </div>
+            </div>
+
+        <!-- DaisyUI Modals -->
+        <!-- Add Email Ending Modal -->
+        <dialog id="addEmailEndingModal" style="background-color: transparent;" class="modal modal-bottom sm:modal-middle">
+            <div class="modal-box">
+                <h3 class="font-bold text-lg text-base-content">Add Domain Access</h3>
+                <p class="py-4 text-base-content/70">Adding an email ending will allow all users with that email domain to become admins. Use this feature carefully.</p>
+                <form id="addEmailEndingForm">
+                    <div class="form-control w-full">
+                        <label class="label">
+                            <span class="label-text text-base-content">Email Domain</span>
+                        </label>
+                        <input type="text" placeholder="example.com" class="input input-bordered w-full bg-base-100 text-base-content" id="email_ending" required>
+                        <label class="label">
+                            <span class="label-text-alt text-base-content/50">Enter the domain without '@' symbol (e.g., 'example.com').</span>
+                        </label>
+                        <div id="domain-error" class="text-error hidden"></div>
+                    </div>
+                </form>
+                <div class="modal-action">
+                    <form method="dialog">
+                        <button type="button" class="btn btn-ghost text-base-content/70">Close</button>
+                    </form>
+                    <button class="btn btn-primary" id="saveEmailEnding">Allow Domain</button>
+                </div>
+            </div>
+        </dialog>
+
+        <!-- Add Admin Modal -->
+        <dialog id="addCompanyAdminModal" style="background-color: transparent;" class="modal modal-bottom sm:modal-middle">
+            <div class="modal-box">
+                <h3 class="font-bold text-lg text-base-content">Add Individual Admin</h3>
+                <p class="py-4 text-base-content/70">Add a specific email address to grant admin access. This is for individual admin accounts.</p>
+                <form id="addCompanyAdminForm">
+                    <div class="form-control w-full">
+                        <label class="label">
+                            <span class="label-text text-base-content">Admin Email</span>
+                        </label>
+                        <input type="email" placeholder="admin@example.com" class="input input-bordered w-full bg-base-100 text-base-content" id="email" required>
+                        <label class="label">
+                            <span class="label-text-alt text-base-content/50">Enter the full email address of the new admin.</span>
+                        </label>
+                    </div>
+                </form>
+                <div class="modal-action">
+                    <form method="dialog">
+                        <button type="button" class="btn btn-ghost text-base-content/70">Close</button>
+                    </form>
+                    <button class="btn btn-primary" id="saveCompanyAdmin">Add Admin</button>
+                </div>
+            </div>
+        </dialog>
+    </main>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="/static/js/script.js"></script>
+    <script src="/static/js/sidebar.js"></script>
+    <script src="/static/js/team-page.js"></script>
+</body>
+</html>

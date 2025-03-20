@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="{{ theme }}">
+<head>
+    <title>404 - Page Not Found</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% include 'partials/_head_tags.html' %}
+</head>
+<body class="font-['Inter'] bg-base-100 min-h-screen flex items-center justify-center">
+    <div class="card w-96 bg-base-100 shadow-xl">
+        <div class="card-body items-center text-center">
+            <img src="{{ logo_url }}" alt="Company Logo" class="w-24 h-24 mb-4 rounded-lg object-cover">
+            <h2 class="card-title text-error text-4xl mb-2">404</h2>
+            <p class="text-base-content mb-2">Page Not Found</p>
+            <p class="text-base-content text-sm mb-6">The page you are looking for might have been removed or is temporarily unavailable.</p>
+            <div class="card-actions">
+                <a href="{{ url_for('home_route') }}" class="btn btn-primary">
+                    <i class="bi bi-house mr-2"></i>Return to Home
+                </a>
+            </div>
+        </div>
+    </div>
+    <script src="/static/js/script.js"></script>
+</body>
+</html>

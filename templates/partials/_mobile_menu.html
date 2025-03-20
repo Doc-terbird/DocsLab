@@ -1,0 +1,19 @@
+<div id="mobile-menu-overlay" class="fixed inset-0 bg-base-100 z-[2000] hidden overflow-y-auto">
+    <div class="flex justify-end p-4 border-b border-base-200">
+        <button id="close-mobile-menu" class="text-2xl text-base-content hover:text-primary transition-colors duration-300">
+            <i class="bi bi-x-lg"></i>
+        </button>
+    </div>
+    <div class="p-8">
+        <ul class="space-y-4">
+            {% from 'partials/_navigation.html' import nav_items %}
+            {{ nav_items() }}
+            <li class="rounded-xl overflow-hidden">
+                <a href="{{ url_for('logout') }}" class="flex items-center px-4 py-3 text-base-content rounded-xl hover:bg-primary/10 hover:text-primary transition-all duration-300 {% if request.endpoint == 'logout' %}bg-primary/10 text-primary font-medium{% endif %}">
+                    <span class="min-w-[1.75rem] pr-3 text-lg flex items-center justify-center"><i class="bi bi-box-arrow-right"></i></span>
+                    <span class="ml-3">Logout</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>
